@@ -1,0 +1,23 @@
+name = "phstatic13"
+compatibility_date = "2026-03-25"
+main = "src/worker.ts"
+
+[env.production]
+route = "phstatic.com.br/*"
+zone_id = ""
+vars = { ENVIRONMENT = "production" }
+
+[assets]
+directory = "./dist"
+not_found_handling = "single-page-application"
+
+[build]
+command = "npm run build"
+watch_paths = ["src/**/*.{ts,tsx,css}"]
+upload.format = "modules"
+
+# Server Configuration
+[env.production.vars]
+SECURE_HEADERS = "true"
+CSP_ENABLED = "true"
+HSTS_MAX_AGE = "63072000"
