@@ -35,6 +35,5 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false, // Disable sourcemaps in production for security
-    minify: 'terser',
   },
 });
