@@ -17,13 +17,17 @@ export default defineConfig({
     {
       name: 'copy-headers',
       writeBundle() {
-        // Copy _headers file to dist for Cloudflare
-        const source = path.resolve(__dirname, '_headers');
-        const dest = path.resolve(__dirname, 'dist', '_headers');
-        if (fs.existsSync(source)) {
-          fs.copyFileSync(source, dest);
-          console.log('✅ _headers file copied to dist');
-        }
+        // Copy static files to dist for Cloudflare/Hosting
+        const filesToCopy = ['_headers', 'robots.txt', 'sitemap.xml', 'manifest.json'];
+        
+        filesToCopy.forEach(file => {
+          const source = path.resolve(__dirname, file);
+          const dest = path.resolve(__dirname, 'dist', file);
+          if (fs.existsSync(source)) {
+            fs.copyFileSync(source, dest);
+            console.log(`✅ ${file} copied to dist`);
+          }
+        });
       }
     }
   ],

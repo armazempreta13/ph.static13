@@ -126,6 +126,7 @@ const TechIcon = ({ children, label, color, hoverColor }: { children?: React.Rea
 const DefaultHeroLayout: React.FC<HeroProps> = ({ onNavigate, onOpenChat }) => {
   const { content } = useContent();
   const HERO_CONFIG = content.hero;
+  const FAQ_DATA = content.faq;
   
   const dynamicText = useTypewriter(HERO_CONFIG.DYNAMIC_WORDS, 100, 50, 2000);
   const isMobile = useMobile();
@@ -136,6 +137,7 @@ const DefaultHeroLayout: React.FC<HeroProps> = ({ onNavigate, onOpenChat }) => {
         title="Desenvolvedor Frontend & UI Specialist"
         description="Especialista em criar sites de alta performance, Landing Pages que vendem e aplicações React modernas. Transforme seu negócio digital."
         keywords={["Freelancer Frontend", "Programador React", "Criação de Landing Page", "Desenvolvedor Web Brasil"]}
+        faq={FAQ_DATA}
       />
       
       <MemoizedBackground />

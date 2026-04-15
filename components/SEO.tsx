@@ -68,10 +68,10 @@ export const SEO: React.FC<SEOProps> = ({
     };
   }
 
-  // 2. Organization / Local Business Schema (Hybrid)
+  // 2. Organization / ProfessionalService Schema (Hybrid)
   const organizationSchema = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "ProfessionalService",
     "@id": `${SITE_CONFIG.URL}/#organization`,
     "name": "PH Development",
     "url": SITE_CONFIG.URL,
@@ -108,9 +108,39 @@ export const SEO: React.FC<SEOProps> = ({
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5",
-      "reviewCount": "48", // Based on successful projects count
+      "reviewCount": "52",
       "bestRating": "5",
       "worstRating": "1"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Serviços de Desenvolvimento Web",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Landing Page de Alta Conversão",
+            "description": "Criação de landing pages focadas em vendas e performance."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Sites Institucionais",
+            "description": "Desenvolvimento de sites profissionais para empresas."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "E-commerce & Web Apps",
+            "description": "Sistemas web complexos e lojas virtuais sob medida."
+          }
+        }
+      ]
     }
   };
 
@@ -124,7 +154,15 @@ export const SEO: React.FC<SEOProps> = ({
     "publisher": {
       "@id": `${SITE_CONFIG.URL}/#organization`
     },
-    "inLanguage": "pt-BR"
+    "inLanguage": "pt-BR",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `${SITE_CONFIG.URL}/?s={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    }
   };
 
   // 4. Person Schema (The Expert)
@@ -133,14 +171,16 @@ export const SEO: React.FC<SEOProps> = ({
     "@type": "Person",
     "@id": `${SITE_CONFIG.URL}/#person`,
     "name": "Philippe Boechat (PH)",
-    "jobTitle": "Senior Frontend Engineer",
+    "jobTitle": "Senior Frontend Engineer & Web Specialist",
     "url": SITE_CONFIG.URL,
     "image": "https://i.imgur.com/TNMBi27.jpeg",
+    "description": "Especialista em desenvolvimento Web de alta performance com mais de 10 anos de experiência.",
     "worksFor": {
       "@id": `${SITE_CONFIG.URL}/#organization`
     },
     "sameAs": [
-      CONTACT_CONFIG.GITHUB_URL
+      CONTACT_CONFIG.GITHUB_URL,
+      CONTACT_CONFIG.INSTAGRAM_URL
     ]
   };
 
@@ -149,7 +189,7 @@ export const SEO: React.FC<SEOProps> = ({
   if (schema) schemasToRender.push(schema);
   if (breadcrumbSchema) schemasToRender.push(breadcrumbSchema);
 
-  if (faq) {
+  if (faq && faq.length > 0) {
     schemasToRender.push({
       "@context": "https://schema.org",
       "@type": "FAQPage",
@@ -173,6 +213,7 @@ export const SEO: React.FC<SEOProps> = ({
       <link rel="canonical" href={siteUrl} />
       <meta name="author" content="PH Development" />
       <meta name="theme-color" content="#7c3aed" />
+      <meta name="rating" content="general" />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />
@@ -182,6 +223,7 @@ export const SEO: React.FC<SEOProps> = ({
       <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={siteTitle} />
       <meta property="og:site_name" content="PH Development" />
       <meta property="og:locale" content="pt_BR" />
 
@@ -190,7 +232,13 @@ export const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:title" content={siteTitle} />
       <meta name="twitter:description" content={metaDescription} />
       <meta name="twitter:image" content={ogImage} />
+      <meta name="twitter:image:alt" content={siteTitle} />
       <meta name="twitter:creator" content="@ph_dev" />
+      <meta name="twitter:site" content="@ph_dev" />
+
+      {/* iOS Meta */}
+      <meta name="apple-mobile-web-app-title" content="PH Dev" />
+      <meta name="application-name" content="PH Dev" />
 
       {/* JSON-LD Structured Data Injection */}
       <script type="application/ld+json">
