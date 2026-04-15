@@ -23,11 +23,7 @@ export const FAQ: React.FC<FAQProps> = ({ onOpenChat }) => {
 
   return (
     <section id="faq" className="py-24 bg-white relative overflow-hidden">
-      <SEO 
-        title="Perguntas Frequentes - FAQ" 
-        description="Tire suas dúvidas sobre desenvolvimento de sites, prazos, custos e tecnologia."
-        faq={faqData} 
-      />
+      {/* Removed SEO tag to prevent overwriting document title */}
 
       <div className="container mx-auto px-4 md:px-8 max-w-4xl relative z-10">
         <SectionTitle 

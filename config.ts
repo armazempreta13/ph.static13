@@ -53,13 +53,13 @@ export const ANALYTICS_CONFIG = {
 // --- PERSONAL & CONTACT INFO ---
 export const CONTACT_CONFIG = {
   WHATSAPP_NUMBER: "5561993254324", // Format: CountryCodeAreaCodeNumber
-  EMAIL: "contato@phstatic.com.br",
+  EMAIL: "philippeboechat1@gmail.com",
   INSTAGRAM_URL: "https://instagram.com/philippeboechat",
   GITHUB_URL: "https://github.com", // Adicionado para SEO SameAs
   // ACESSE https://formspree.io/ para criar seu formulário gratuito e cole o ID abaixo
   // Exemplo: "xdoqkzqa"
-  FORMSPREE_ID: "manrbopn", 
-  
+  FORMSPREE_ID: "manrbopn",
+
   // SEO LOCAL DATA
   ADDRESS_COUNTRY: "BR",
   ADDRESS_REGION: "DF",
@@ -71,13 +71,12 @@ export const CONTACT_CONFIG = {
 
 // --- SITE META ---
 export const SITE_CONFIG = {
-  TITLE: "PH.static",
-  SUBTITLE: "Portfolio Profissional",
+  TITLE: "PH Development | Especialista em Criação de Sites e Landing Pages",
+  SUBTITLE: "Desenvolvedor Frontend Sênior & UI/UX Design",
   URL: "https://phstatic.com.br", // Importante para Canonical
-  DESCRIPTION: "Construindo interfaces digitais que combinam estética premium, alta performance e resultados estratégicos para o seu negócio.",
-  COPYRIGHT: `© ${new Date().getFullYear()} PH.static. Todos os direitos reservados.`
+  DESCRIPTION: "Desenvolvedor Web e Frontend Sênior. Especialista em criação de sites institucionais, landing pages de alta conversão, e-commerces e sistemas web sob medida com React, Next.js e TypeScript. Transforme sua presença digital com design premium, SEO otimizado e performance inigualável.",
+  COPYRIGHT: `© ${new Date().getFullYear()} PH Development. Todos os direitos reservados.`
 };
-
 // --- NAVIGATION ---
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Home', id: 'home' },

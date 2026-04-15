@@ -2,6 +2,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18092178381"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-18092178381');
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -23,9 +32,45 @@
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     
-    <!-- SEO Base (Will be overwritten dynamically by React Helmet) -->
-    <title>PH.dev | Especialista em Criação de Sites</title>
-    <meta name="description" content="Desenvolvedor Frontend Sênior. Sites de alta performance e Landing Pages." />
+    <!-- SEO Base (Fallback para Crawlers s/ JS) -->
+    <title>PH Development | Especialista em Criação de Sites e Landing Pages</title>
+    <meta name="description" content="Desenvolvedor Web e Frontend Sênior. Especialista em criação de sites institucionais, landing pages de alta conversão, e-commerces e sistemas web sob medida com React, Next.js e TypeScript." />
+    <meta name="keywords" content="criação de sites, desenvolvedor frontend, desenvolvedor web, landing page de alta conversão, react, next.js, desenvolvimento web, programador freelancer, sites de alta performance, UX UI design" />
+    <meta name="author" content="PH Development" />
+    <link rel="canonical" href="https://phstatic.com.br/" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://phstatic.com.br/" />
+    <meta property="og:title" content="PH Development | Especialista em Criação de Sites e Landing Pages" />
+    <meta property="og:description" content="Desenvolvedor Web e Frontend Sênior. Especialista em criação de sites institucionais, landing pages de alta conversão, e-commerces e sistemas web sob medida com React, Next.js e TypeScript." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1200&h=630&auto=format&fit=crop" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://phstatic.com.br/" />
+    <meta property="twitter:title" content="PH Development | Especialista em Criação de Sites e Landing Pages" />
+    <meta property="twitter:description" content="Desenvolvedor Web e Frontend Sênior. Especialista em criação de sites institucionais, landing pages de alta conversão, e-commerces e sistemas web sob medida." />
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1200&h=630&auto=format&fit=crop" />
+
+    <!-- Schema.org Initial Fallback -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "PH Development",
+        "image": "https://i.imgur.com/TNMBi27.jpeg",
+        "url": "https://phstatic.com.br",
+        "telephone": "+5561993254324",
+        "description": "Desenvolvedor Web e Frontend Sênior. Especialista em criação de sites institucionais e landing pages de alta conversão.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Brasília",
+          "addressRegion": "DF",
+          "addressCountry": "BR"
+        }
+      }
+    </script>
     
     <!-- CRITICAL IMAGE PRELOAD (INSTANT LOADING STRATEGY) -->
     <!-- About Image -->
