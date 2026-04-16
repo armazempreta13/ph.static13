@@ -19,6 +19,7 @@ import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { Blog } from './components/Blog';
 import { AccessibilityMenu } from './components/AccessibilityMenu';
 import { BottomNav } from './components/BottomNav';
+import { SEO } from './components/SEO';
 import { ServicePackage, ViewType } from './types';
 import { ContentProvider, useContent } from './contexts/ContentContext'; 
 import { ProjectProvider } from './contexts/ProjectContext'; 
@@ -27,6 +28,7 @@ import { AdminPanel } from './components/AdminPanel';
 import { ClientPortal } from './components/ClientPortal';
 import { AdminDashboard } from './components/AdminDashboard';
 import { ClientBriefingPage } from './components/ClientBriefingPage';
+import { isIndexableView } from './lib/seo';
 
 const Chatbot = React.lazy(() => import('./components/Chatbot').then(module => ({ default: module.Chatbot })));
 const ZenithOnePage = React.lazy(() => Promise.reject()); // Desativado
@@ -60,14 +62,55 @@ function AppContent() {
   useEffect(() => {
       const params = new URLSearchParams(window.location.search);
       const pageParam = params.get('page');
-      
+      const serviceParam = params.get('service');
+
       if (pageParam === 'briefing') {
           setCurrentView('briefing');
+      } else if (isIndexableView(pageParam)) {
+          setCurrentView(pageParam);
       } else if (pageParam === 'admin') {
           // Shortcut to open login modal (desabilitado)
           // setShowAuthModal(true);
       }
-  }, []);
+
+      if (serviceParam) {
+          const matchedService = content.services.find((service) => service.id === serviceParam);
+          if (matchedService) {
+              setCurrentView('services');
+              setSelectedService(matchedService);
+          }
+      }
+  }, [content.services]);
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+    if (selectedService) {
+      url.searchParams.set('page', 'services');
+      url.searchParams.set('service', selectedService.id);
+    } else {
+      url.searchParams.delete('service');
+
+      if (currentView === 'home') {
+        url.searchParams.delete('page');
+      } else if (isIndexableView(currentView)) {
+        url.searchParams.set('page', currentView);
+      } else {
+        url.searchParams.delete('page');
+      }
+    }
+
+    if (currentView !== 'blog') {
+      url.searchParams.delete('article');
+      url.searchParams.delete('lab');
+    }
+
+    const nextUrl = `${url.pathname}${url.search}${url.hash}`;
+    if (nextUrl !== currentUrl) {
+      window.history.replaceState({}, '', nextUrl);
+    }
+  }, [currentView, selectedService]);
 
   const handleNavigate = useCallback((view: ViewType) => {
     setSelectedService(null);
@@ -163,6 +206,18 @@ function AppContent() {
     <HelmetProvider>
         <div className="min-h-screen relative font-sans bg-white dark:bg-dark flex flex-col text-gray-900 dark:text-white overflow-x-hidden transition-colors duration-300">
             <AnalyticsLoader measurementId={ANALYTICS_CONFIG.GA_MEASUREMENT_ID} />
+            {currentView === '404' && (
+                <SEO title="Página não encontrada" description="A página solicitada não foi encontrada." noindex />
+            )}
+            {currentView === 'admin-dashboard' && (
+                <SEO title="Painel Administrativo" description="Área administrativa restrita." noindex />
+            )}
+            {currentView === 'client-portal' && (
+                <SEO title="Área do Cliente" description="Área restrita para clientes." noindex />
+            )}
+            {currentView === 'briefing' && (
+                <SEO title="Briefing do Projeto" description="Formulário de briefing do projeto." noindex />
+            )}
 
             {/* PRELOADER */}
             <img 
@@ -172,8 +227,6 @@ function AppContent() {
                 aria-hidden="true" 
                 loading="eager"
                 decoding="sync"
-                // @ts-ignore
-                fetchPriority="high"
             />
 
             {/* GLOBAL COMPONENTS (Hidden on Full Screen Views) */}
@@ -299,7 +352,7 @@ function AppContent() {
                                 {currentView === 'contact' && <div className="pt-24 min-h-screen"><ContactMemo /></div>}
                                 {(currentView === 'home' || currentView === 'faq') && (
                                     <div id="faq-section">
-                                        <Suspense fallback={null}><FAQ onOpenChat={() => handleOpenChat('support')} /></Suspense>
+                                        <Suspense fallback={null}><FAQ onOpenChat={() => handleOpenChat('support')} enableSeo={currentView === 'faq'} /></Suspense>
                                     </div>
                                 )}
                             </motion.div>

@@ -10,9 +10,10 @@ import { useContent } from '../contexts/ContentContext';
 
 interface FAQProps {
   onOpenChat: () => void;
+  enableSeo?: boolean;
 }
 
-export const FAQ: React.FC<FAQProps> = ({ onOpenChat }) => {
+export const FAQ: React.FC<FAQProps> = ({ onOpenChat, enableSeo = false }) => {
   const { content } = useContent();
   const faqData = content.faq;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -23,7 +24,18 @@ export const FAQ: React.FC<FAQProps> = ({ onOpenChat }) => {
 
   return (
     <section id="faq" className="py-24 bg-white relative overflow-hidden">
-      {/* Removed SEO tag to prevent overwriting document title */}
+      {enableSeo && (
+      <SEO 
+        title="Criação de Sites Profissionais" 
+        description="Tire suas dúvidas sobre desenvolvimento de sites, prazos, custos e tecnologia."
+        faq={faqData}
+        url="?page=faq"
+        breadcrumbs={[
+          { name: "Home", item: "/" },
+          { name: "FAQ", item: "?page=faq" }
+        ]}
+      />
+      )}
 
       <div className="container mx-auto px-4 md:px-8 max-w-4xl relative z-10">
         <SectionTitle 

@@ -166,17 +166,5 @@ npm run build
 
 ---
 
-## 8. ESTRATÉGIA DE SEO (OFF-SITE & ON-SITE)
-
-A plataforma utiliza uma abordagem de **SEO Técnico Avançado** para garantir indexação máxima e visibilidade em buscadores.
-
-1.  **Arquitetura de Metadados:** Cada view possui títulos e descrições dinâmicas via `react-helmet-async`.
-2.  **Structured Data (JSON-LD):** Implementação profunda de schemas de `ProfessionalService`, `Person`, `FAQPage`, `BreadcrumbList` e `Offer`. Isso habilita **Rich Snippets** (estrelas, perguntas frequentes e preços) diretamente nos resultados de busca do Google.
-3.  **Sitemap & Robots:** Arquivos `sitemap.xml` e `robots.txt` gerados automaticamente para guiar crawlers.
-4.  **PWA Integration:** O arquivo `manifest.json` permite que o site seja instalado como app, um sinal positivo de UX para o algoritmo do Google.
-5.  **Headers de Segurança:** Uso de cabeçalhos HSTS, CSP e X-Content-Type para proteger o site e melhorar o rankeamento de segurança.
-
----
-
 **Propriedade Intelectual:** PH.dev Platform.
 **Contato Técnico:** dev@ph.dev

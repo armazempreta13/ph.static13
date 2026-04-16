@@ -139,6 +139,26 @@ export interface ContactFormData {
   message: string;
 }
 
+export interface ContactSubmissionResult {
+  leadId: string | null;
+  storedInDatabase: boolean;
+  emailDispatched: boolean;
+}
+
+export interface ChatbotBriefingSubmissionResult {
+  ownerMessageId: string | null;
+  customerMessageId: string | null;
+  emailDispatched: boolean;
+}
+
+export interface EmailPayload {
+  to: string | string[];
+  subject: string;
+  html?: string;
+  text?: string;
+  replyTo?: string;
+}
+
 export interface ChatbotProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;

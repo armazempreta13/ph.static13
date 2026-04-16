@@ -4,9 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, CheckCircle2, ChevronDown, Clock, Code2, HelpCircle, MessageSquare, ShieldCheck, XCircle, Zap } from 'lucide-react';
 import { ServicePackage } from '../types';
 import { Button } from './Button';
-import { WHATSAPP_NUMBER } from '../constants';
 import { SmartText } from './SmartText';
 import { SEO } from './SEO';
+import { useContent } from '../contexts/ContentContext';
+import { buildPageUrl, buildServiceUrl } from '../lib/seo';
 
 interface ServiceDetailProps {
   service: ServicePackage;
@@ -15,6 +16,7 @@ interface ServiceDetailProps {
 }
 
 export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, onHire }) => {
+  const { content } = useContent();
   const [activeTab, setActiveTab] = useState<'overview' | 'scope' | 'faq'>('overview');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
@@ -25,7 +27,7 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
 
   const handleWhatsApp = () => {
     const text = `Olá! Vi os detalhes do pacote *${service.title}* no seu portfólio e gostaria de saber mais.`;
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    const url = `https://wa.me/${content.contact.WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
     window.open(url, '_self');
   };
 
@@ -37,16 +39,18 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
     "@context": "https://schema.org",
     "@type": "Service",
     "name": service.title,
+    "url": buildServiceUrl(content.site.URL, service.id),
     "provider": {
         "@type": "Person",
-        "name": "PH Development"
+        "name": content.site.TITLE
     },
     "description": service.purpose,
     "offers": {
         "@type": "Offer",
         "priceCurrency": "BRL",
         "price": service.price.replace(/[^0-9,]/g, '').replace(',', '.'), // Basic extraction, assumes "R$ 900" format
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "url": buildServiceUrl(content.site.URL, service.id)
     }
   };
 
@@ -65,10 +69,11 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, o
         type="service"
         schema={serviceSchema}
         faq={service.faqs}
+        url={buildServiceUrl(content.site.URL, service.id)}
         breadcrumbs={[
-            { name: "Home", item: "/" }, 
-            { name: "Serviços", item: "/#services" },
-            { name: service.title, item: `#service-${service.id}` }
+            { name: "Home", item: buildPageUrl(content.site.URL, 'home') }, 
+            { name: "Serviços", item: buildPageUrl(content.site.URL, 'services') },
+            { name: service.title, item: buildServiceUrl(content.site.URL, service.id) }
         ]}
       />
 

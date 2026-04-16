@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Shield } from 'lucide-react';
 import { ViewType } from '../types';
+import { SEO } from './SEO';
 
 interface PrivacyPolicyProps {
   onNavigate: (view: ViewType) => void;
@@ -20,6 +21,15 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onNavigate }) => {
       exit={{ opacity: 0, y: -20 }}
       className="min-h-screen bg-white dark:bg-dark text-gray-800 dark:text-gray-200 pt-28 pb-20 font-sans transition-colors duration-300"
     >
+      <SEO
+        title="Política de Privacidade"
+        description="Consulte como a PH.static coleta, utiliza e protege dados pessoais e informações de navegação."
+        url="?page=privacy"
+        breadcrumbs={[
+          { name: "Home", item: "/" },
+          { name: "Política de Privacidade", item: "?page=privacy" }
+        ]}
+      />
       <div className="container mx-auto px-4 md:px-8 max-w-4xl">
         <button 
           onClick={() => onNavigate('home')} 

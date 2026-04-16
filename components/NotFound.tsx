@@ -3,6 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Home, AlertTriangle } from 'lucide-react';
 import { Button } from './Button';
+import { SEO } from './SEO';
 
 interface NotFoundProps {
   onHome: () => void;
@@ -11,6 +12,11 @@ interface NotFoundProps {
 export const NotFound: React.FC<NotFoundProps> = ({ onHome }) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-dark p-4 font-sans text-center relative overflow-hidden">
+        <SEO
+            title="Página não encontrada"
+            description="A página solicitada não existe ou foi movida."
+            noindex
+        />
         
         {/* Background Glitch Effect */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>

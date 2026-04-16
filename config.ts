@@ -53,13 +53,13 @@ export const ANALYTICS_CONFIG = {
 // --- PERSONAL & CONTACT INFO ---
 export const CONTACT_CONFIG = {
   WHATSAPP_NUMBER: "5561993254324", // Format: CountryCodeAreaCodeNumber
-  EMAIL: "philippeboechat1@gmail.com",
+  EMAIL: "contato@phstatic.com.br",
   INSTAGRAM_URL: "https://instagram.com/philippeboechat",
   GITHUB_URL: "https://github.com", // Adicionado para SEO SameAs
   // ACESSE https://formspree.io/ para criar seu formulário gratuito e cole o ID abaixo
   // Exemplo: "xdoqkzqa"
-  FORMSPREE_ID: "manrbopn",
-
+  FORMSPREE_ID: "manrbopn", 
+  
   // SEO LOCAL DATA
   ADDRESS_COUNTRY: "BR",
   ADDRESS_REGION: "DF",
@@ -71,12 +71,13 @@ export const CONTACT_CONFIG = {
 
 // --- SITE META ---
 export const SITE_CONFIG = {
-  TITLE: "PH Development | Especialista em Criação de Sites e Landing Pages",
-  SUBTITLE: "Desenvolvedor Frontend Sênior & UI/UX Design",
+  TITLE: "PH.static",
+  SUBTITLE: "Portfolio Profissional",
   URL: "https://phstatic.com.br", // Importante para Canonical
-  DESCRIPTION: "Desenvolvedor Web e Frontend Sênior. Especialista em criação de sites institucionais, landing pages de alta conversão, e-commerces e sistemas web sob medida com React, Next.js e TypeScript. Transforme sua presença digital com design premium, SEO otimizado e performance inigualável.",
-  COPYRIGHT: `© ${new Date().getFullYear()} PH Development. Todos os direitos reservados.`
+  DESCRIPTION: "Construindo interfaces digitais que combinam estética premium, alta performance e resultados estratégicos para o seu negócio.",
+  COPYRIGHT: `© ${new Date().getFullYear()} PH.static. Todos os direitos reservados.`
 };
+
 // --- NAVIGATION ---
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Home', id: 'home' },
@@ -126,36 +127,35 @@ const ABOUT_MODE: 'default' | 'ai' = 'ai';
 
 const PROFILES = {
   default: {
-    TITLE: "Quem está por trás",
-    SUBTITLE: "Mais do que código: parceiro estratégico do seu negócio.",
+    TITLE: "Engenharia de Resultados",
+    SUBTITLE: "Tecnologia de elite para negócios que buscam autoridade.",
     PARAGRAPHS: [
-      "Olá! Sou o PH, um Engenheiro Frontend Sênior apaixonado por unir design e tecnologia. Minha missão não é apenas \"fazer sites\", mas construir ferramentas digitais que impulsionem vendas e autoridade.",
-      "Com especialização profunda no ecossistema React & TypeScript, elimino a complexidade técnica para entregar interfaces limpas, rápidas e prontas para escalar."
+      "Sou apaixonado por unir design refinado e arquitetura de software robusta. Minha missão é transformar complexidade técnica em interfaces limpas, rápidas e prontas para escalar.",
+      "Com expertise profunda no ecossistema de alta performance, entrego ferramentas digitais que não apenas funcionam, mas impulsionam vendas e consolidam a presença digital da marca."
     ],
     HIGHLIGHTS: [
-      { title: "Qualidade Premium", desc: "Design refinado e código limpo." },
-      { title: "Performance Extrema", desc: "Sites otimizados para o Google." }
+      { title: "Acabamento Premium", desc: "Design high-end e código de precisão." },
+      { title: "Performance Extrema", desc: "Otimização máxima para conversão." }
     ]
   },
   ai: {
-    TITLE: "Engenharia Aumentada",
-    SUBTITLE: "Onde a expertise sênior encontra a aceleração algorítmica.",
+    TITLE: "Engenharia de Performance",
+    SUBTITLE: "Onde o domínio estratégico encontra a aceleração tecnológica.",
     PARAGRAPHS: [
-      "Na era da Inteligência Artificial, meu papel evoluiu de desenvolvedor para Engenheiro-Chefe da Produção. Eu opero sob o paradigma da Engenharia Aumentada, que não é uma opção, mas sim o novo padrão de mercado para velocidade e excelência.",
-      "Utilizo o poder da IA como um motor de produção para eliminar o risco e o desperdício de tempo. A automação das tarefas de boilerplate e codificação repetitiva resulta em uma economia de tempo que é reinvestida diretamente na otimização da arquitetura e na melhoria do UX/UI.",
-      "A IA atua como uma camada de QA (Quality Assurance) algorítmico em tempo real. Isso significa que a performance, acessibilidade e as especificações Pixel-Perfect são validadas em cada linha de código. O resultado é a garantia de um produto final zero-bug.",
-      "Você contrata meu domínio de anos de mercado e minha visão estratégica; a IA garante a sua velocidade e precisão. O resultado é a entrega de um código de nível C-Suite, com arquitetura sólida e validação tecnológica."
+      "Opero sob o paradigma da Engenharia Aumentada, utilizando Inteligência Artificial não apenas como uma ferramenta, mas como um multiplicador de precisão e velocidade. Isso garante que cada projeto nasça com arquitetura de elite e zero dívida técnica.",
+      "O foco é eliminar o boilerplate e reinvestir esse tempo naquilo que realmente gera valor: experiência do usuário, conversão e segurança. O resultado é um produto digital superior, validado por algoritmos de qualidade e curadoria humana rigorosa.",
+      "Você não contrata apenas um site; você investe em um ativo digital de alto desempenho. Minha entrega combina a visão estratégica de anos de mercado com a agilidade da codificação assistida por IA, resultando em precisão absoluta em cada pixel."
     ],
     HIGHLIGHTS: [
-      { title: "Velocidade 10x", desc: "Produção acelerada por IA." },
-      { title: "Zero Bugs", desc: "Validação algorítmica constante." }
+      { title: "Entrega Acelerada", desc: "Velocidade de produção sem precedentes." },
+      { title: "Validação Algorítmica", desc: "QA contínuo para máxima segurança." }
     ]
   }
 };
 
 export const ABOUT_CONFIG = {
-  IMAGE_URL: "https://i.imgur.com/TNMBi27.jpeg",
-  EXPERIENCE_YEARS: "Philippe Boechat",
+  IMAGE_URL: "",
+  EXPERIENCE_YEARS: "Alta Performance",
   ...PROFILES[ABOUT_MODE]
 };
 
@@ -385,5 +385,3 @@ export const FAQ_DATA: FAQ[] = [
 ];
 
 export const FINANCIAL_NOTE = "Nosso preço reflete o valor de um processo otimizado por IA, garantindo que você pague por solução rápida, risco zero de boilerplate e código durável, e não por tempo desperdiçado em tarefas manuais.";
-
-

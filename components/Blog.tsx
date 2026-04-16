@@ -19,8 +19,8 @@ import { RealTimePerformanceDemo, AIArchitectureDemo, ResponsiveResizer } from '
 import { AudioPlayer } from './AudioPlayer';
 import { SEO } from './SEO';
 import { useMobile } from '../hooks/useMobile';
-import { SITE_CONFIG } from '../config';
 import { useContent } from '../contexts/ContentContext';
+import { buildBlogArticleUrl, buildBlogLabUrl, buildPageUrl, isBlogLabId } from '../lib/seo';
 
 interface BlogProps {
   onNavigate: (view: ViewType) => void;
@@ -66,6 +66,8 @@ const ArticleView = ({ post, isMobile, onBack, onNavigate }: { post: BlogPost, i
     const scrollRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({ container: scrollRef });
     const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+    const { content } = useContent();
+    const siteUrl = content.site.URL;
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(window.location.href);
@@ -81,21 +83,22 @@ const ArticleView = ({ post, isMobile, onBack, onNavigate }: { post: BlogPost, i
         "author": {
             "@type": "Person",
             "name": post.author,
-            "url": SITE_CONFIG.URL
+            "url": buildPageUrl(siteUrl, 'about')
         },
         "publisher": {
             "@type": "Organization",
-            "name": "PH Development",
+            "name": content.site.TITLE,
             "logo": {
                 "@type": "ImageObject",
-                "url": `${SITE_CONFIG.URL}/favicon.svg`
+                "url": `${siteUrl}/favicon.svg`
             }
         },
         "datePublished": post.date,
+        "dateModified": post.date,
         "description": post.excerpt,
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": `${SITE_CONFIG.URL}/#article-${post.id}`
+            "@id": buildBlogArticleUrl(siteUrl, post.id)
         }
     };
 
@@ -106,10 +109,14 @@ const ArticleView = ({ post, isMobile, onBack, onNavigate }: { post: BlogPost, i
                 description={post.excerpt}
                 type="article"
                 image={post.image}
+                imageAlt={post.title}
+                url={buildBlogArticleUrl(siteUrl, post.id)}
+                publishedTime={post.date}
+                modifiedTime={post.date}
                 breadcrumbs={[
-                    { name: "Home", item: "/" },
-                    { name: "Blog", item: "/#blog" },
-                    { name: "Artigo", item: `/#article-${post.id}` }
+                    { name: "Home", item: buildPageUrl(siteUrl, 'home') },
+                    { name: "Blog", item: buildPageUrl(siteUrl, 'blog') },
+                    { name: "Artigo", item: buildBlogArticleUrl(siteUrl, post.id) }
                 ]}
                 schema={articleSchema}
             />
@@ -151,7 +158,7 @@ const ArticleView = ({ post, isMobile, onBack, onNavigate }: { post: BlogPost, i
                             className="flex items-center gap-3 group text-left transition-all hover:bg-gray-50 p-2 -ml-2 rounded-xl"
                             title="Ver perfil completo"
                         >
-                            <img src="https://i.imgur.com/TNMBi27.jpeg" alt="Author" className="w-10 h-10 rounded-full object-cover ring-2 ring-white shadow-sm group-hover:ring-primary-200 transition-all" />
+                            <img src={content.about.IMAGE_URL} alt="Author" className="w-10 h-10 rounded-full object-cover ring-2 ring-white shadow-sm group-hover:ring-primary-200 transition-all" />
                             <div>
                                 <p className="text-sm font-bold text-gray-900 group-hover:text-primary-600 transition-colors">{post.author}</p>
                                 <p className="text-[10px] text-gray-500 uppercase tracking-wide">Engenheiro Frontend Sênior</p>
@@ -180,6 +187,8 @@ const ArticleView = ({ post, isMobile, onBack, onNavigate }: { post: BlogPost, i
 };
 
 const LabView = ({ id, isMobile, onBack }: { id: string, isMobile: boolean, onBack?: () => void }) => {
+    const { content: siteContent } = useContent();
+    const siteUrl = siteContent.site.URL;
     let Component;
     let title;
     let desc;
@@ -215,10 +224,11 @@ const LabView = ({ id, isMobile, onBack }: { id: string, isMobile: boolean, onBa
             <SEO 
                 title={`${title} | Knowledge Hub`} 
                 description={`Simulação interativa: ${desc}`}
+                url={buildBlogLabUrl(siteUrl, id)}
                 breadcrumbs={[
-                    { name: "Home", item: "/" },
-                    { name: "Blog", item: "/#blog" },
-                    { name: title, item: `/#${id}` }
+                    { name: "Home", item: buildPageUrl(siteUrl, 'home') },
+                    { name: "Blog", item: buildPageUrl(siteUrl, 'blog') },
+                    { name: title, item: buildBlogLabUrl(siteUrl, id) }
                 ]}
             />
             
@@ -274,8 +284,22 @@ export const Blog: React.FC<BlogProps> = ({ onNavigate }) => {
   const [activeContentId, setActiveContentId] = useState<string | null>(null); // Start null unless logic overrides
   const isMobile = useMobile();
 
-  // Select first article by default on desktop
+  // Resolve deep-link state first, then apply desktop/mobile defaults.
   useEffect(() => {
+      const params = new URLSearchParams(window.location.search);
+      const articleId = params.get('article');
+      const labId = params.get('lab');
+
+      if (articleId && content.blogPosts.some((post) => post.id === articleId)) {
+          setActiveContentId(articleId);
+          return;
+      }
+
+      if (isBlogLabId(labId)) {
+          setActiveContentId(labId);
+          return;
+      }
+
       if (!isMobile && !activeContentId) {
           if (content.blogPosts.length > 0) {
               setActiveContentId(content.blogPosts[0].id);
@@ -286,7 +310,7 @@ export const Blog: React.FC<BlogProps> = ({ onNavigate }) => {
       if (isMobile) {
           setActiveContentId(null);
       }
-  }, [isMobile, content.blogPosts]);
+  }, [activeContentId, isMobile, content.blogPosts]);
 
   const handleSelect = (id: string) => {
       setActiveContentId(id);
@@ -300,13 +324,34 @@ export const Blog: React.FC<BlogProps> = ({ onNavigate }) => {
   const activePost = content.blogPosts.find(p => p.id === activeContentId);
   const isLab = ['perf', 'ai', 'mobile'].includes(activeContentId || '');
 
+  useEffect(() => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('page', 'blog');
+      url.searchParams.delete('article');
+      url.searchParams.delete('lab');
+
+      if (activePost) {
+          url.searchParams.set('article', activePost.id);
+      } else if (isLab && activeContentId) {
+          url.searchParams.set('lab', activeContentId);
+      }
+
+      const nextUrl = `${url.pathname}${url.search}${url.hash}`;
+      const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+      if (nextUrl !== currentUrl) {
+          window.history.replaceState({}, '', nextUrl);
+      }
+  }, [activeContentId, activePost, isLab]);
+
   return (
     <div className="bg-gray-50 min-h-screen pt-20 md:pt-24 pb-0 flex flex-col h-screen overflow-hidden">
       {!activeContentId && (
           <SEO 
             title="Knowledge Hub | PH Development"
             description="Artigos técnicos e laboratórios interativos sobre desenvolvimento web, performance e IA."
-            type="article"
+            type="website"
+            url={buildPageUrl(content.site.URL, 'blog')}
           />
       )}
 

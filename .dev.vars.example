@@ -1,0 +1,7 @@
+EMAIL_PROVIDER=mailchannels
+CONTACT_EMAIL_TO=philippeboechat1@gmail.com
+CONTACT_FROM_EMAIL=no-reply@phstatic.com.br
+CONTACT_FROM_NAME=PH.static
+MAILCHANNELS_FROM_EMAIL=no-reply@phstatic.com.br
+RESEND_API_KEY=
+ALLOWED_ORIGIN=https://phstatic.com.br

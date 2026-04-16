@@ -21,7 +21,7 @@ export const PROJECTS_DATA: Project[] = [
     title: 'LK Imports',
     category: 'E-commerce / Distribuição',
     description: 'Plataforma de importação e distribuição de produtos. Site responsivo com catálogo dinâmico, integração de pagamentos e gestão de pedidos.',
-    image: 'https://i.imgur.com/Ga4bMmk.png',
+    image: 'https://i.imgur.com/dShvTIQ.png',
     tags: ['React', 'E-commerce', 'Responsivo', 'Integração de Pagamentos'],
     demoUrl: 'https://www.lkimports.net',
     liveUrl: 'https://www.lkimports.net',

@@ -5,25 +5,26 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "smtp": "node server.mjs",
     "build": "vite build",
     "preview": "vite preview",
+    "start": "node server.mjs",
     "cf:build": "npm run build",
     "cf:deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
+    "dotenv": "^17.4.2",
+    "firebase": "^12.12.0",
     "framer-motion": "^12.23.24",
     "lucide-react": "^0.555.0",
+    "nodemailer": "^8.0.5",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "react-helmet-async": "2.0.4"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.2.2",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
-    "autoprefixer": "^10.4.27",
-    "postcss": "^8.5.8",
-    "tailwindcss": "^4.2.2",
     "typescript": "~5.8.2",
     "vite": "^6.2.0",
     "wrangler": "^4.77.0"

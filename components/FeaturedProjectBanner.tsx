@@ -72,7 +72,7 @@ export const FeaturedProjectBanner: React.FC = () => {
               
               {/* Logo */}
               <img
-                src="https://i.imgur.com/Ga4bMmk.png"
+                src={project.image}
                 alt={project.title}
                 className="relative z-10 h-64 w-auto object-contain transition-transform duration-700 group-hover:scale-110"
               />

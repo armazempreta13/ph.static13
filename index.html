@@ -2,21 +2,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18092178381"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'AW-18092178381');
-    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="PH Dev" />
     
     <!-- SEO: Bot Control -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -35,58 +23,51 @@
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     
-    <!-- SEO Base (Fallback para Crawlers s/ JS) -->
-    <title>PH Development | Especialista em Criação de Sites e Landing Pages</title>
-    <meta name="description" content="Desenvolvedor Web e Frontend Sênior. Especialista em criação de sites institucionais, landing pages de alta conversão, e-commerces e sistemas web sob medida com React, Next.js e TypeScript." />
-    <meta name="keywords" content="criação de sites, desenvolvedor frontend, desenvolvedor web, landing page de alta conversão, react, next.js, desenvolvimento web, programador freelancer, sites de alta performance, UX UI design" />
-    <meta name="author" content="PH Development" />
-    <link rel="canonical" href="https://phstatic.com.br/" />
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://phstatic.com.br/" />
-    <meta property="og:title" content="PH Development | Especialista em Criação de Sites e Landing Pages" />
-    <meta property="og:description" content="Desenvolvedor Web e Frontend Sênior. Especialista em criação de sites institucionais, landing pages de alta conversão, e-commerces e sistemas web sob medida com React, Next.js e TypeScript." />
-    <meta property="og:image" content="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1200&h=630&auto=format&fit=crop" />
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://phstatic.com.br/" />
-    <meta property="twitter:title" content="PH Development | Especialista em Criação de Sites e Landing Pages" />
-    <meta property="twitter:description" content="Desenvolvedor Web e Frontend Sênior. Especialista em criação de sites institucionais, landing pages de alta conversão, e-commerces e sistemas web sob medida." />
-    <meta property="twitter:image" content="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1200&h=630&auto=format&fit=crop" />
-
-    <!-- Schema.org Initial Fallback -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "PH Development",
-        "image": "https://i.imgur.com/TNMBi27.jpeg",
-        "url": "https://phstatic.com.br",
-        "telephone": "+5561993254324",
-        "description": "Desenvolvedor Web e Frontend Sênior. Especialista em criação de sites institucionais e landing pages de alta conversão.",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Brasília",
-          "addressRegion": "DF",
-          "addressCountry": "BR"
-        }
-      }
-    </script>
+    <!-- SEO Base (Will be overwritten dynamically by React Helmet) -->
+    <title>PH.dev | Especialista em Criação de Sites</title>
+    <meta name="description" content="Desenvolvedor Frontend Sênior. Sites de alta performance e Landing Pages." />
     
     <!-- CRITICAL IMAGE PRELOAD (INSTANT LOADING STRATEGY) -->
     <!-- About Image -->
-    <link rel="preload" as="image" href="https://i.imgur.com/TNMBi27.jpeg" fetchpriority="high" />
-    
-    <!-- Portfolio Images (Preloaded for instant visibility) -->
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop" />
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=2000&auto=format&fit=crop" />
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1614728423169-3f65fd722b7e?q=80&w=2000&auto=format&fit=crop" />
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop" fetchpriority="high" />
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: '#f5f3ff',
+                100: '#ede9fe',
+                200: '#ddd6fe',
+                300: '#c4b5fd',
+                400: '#a78bfa',
+                500: '#8b5cf6',
+                600: '#7c3aed',
+                700: '#6d28d9',
+                800: '#5b21b6',
+                900: '#4c1d95',
+              },
+              dark: '#0a0a0a', 
+              light: '#F9FAFB',
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Poppins', 'sans-serif'],
+            },
+            padding: {
+              'safe': 'env(safe-area-inset-bottom)',
+            }
+          },
+        },
+      }
+    </script>
     <style>
       ::-webkit-scrollbar { width: 8px; }
       ::-webkit-scrollbar-track { background: transparent; }
