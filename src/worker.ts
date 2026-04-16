@@ -349,7 +349,21 @@ export default {
       }
     }
 
-    const response = await env.ASSETS.fetch(request);
-    return applySecurityHeaders(response, url);
+    try {
+      let response = await env.ASSETS.fetch(request);
+      
+      // Se for um 404 (provavelmente uma rota amigável do SPA), servimos o index.html
+      if (response.status === 404 && !url.pathname.includes('.')) {
+        const indexRequest = new Request(url.origin + '/index.html', request);
+        response = await env.ASSETS.fetch(indexRequest);
+      }
+      
+      return applySecurityHeaders(response, url);
+    } catch (error: any) {
+      return new Response(`Worker Error: ${error?.message || 'Unknown Error'}`, { 
+        status: 500,
+        headers: getCorsHeaders(request, env) 
+      });
+    }
   }
 };
