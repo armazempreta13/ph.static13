@@ -2,14 +2,20 @@ import React, { useEffect } from 'react';
 import { useCookieConsent } from '../hooks/useCookieConsent';
 
 interface AnalyticsLoaderProps {
-  measurementId: string;
+  tagIds: string[];
 }
 
-export const AnalyticsLoader: React.FC<AnalyticsLoaderProps> = ({ measurementId }) => {
+const PLACEHOLDER_IDS = new Set(['', 'G-XXXXXXXXXX']);
+
+export const AnalyticsLoader: React.FC<AnalyticsLoaderProps> = ({ tagIds }) => {
   const { consent } = useCookieConsent();
+  const validTagIds = Array.from(
+    new Set((tagIds || []).map((id) => id.trim()).filter((id) => !PLACEHOLDER_IDS.has(id)))
+  );
+  const validTagIdsKey = validTagIds.join('|');
 
   useEffect(() => {
-    if (!measurementId || measurementId === 'G-XXXXXXXXXX') {
+    if (validTagIds.length === 0) {
       return;
     }
 
@@ -18,9 +24,11 @@ export const AnalyticsLoader: React.FC<AnalyticsLoaderProps> = ({ measurementId 
     }
 
     if (consent === true) {
+      const primaryTagId = validTagIds[0];
+
       const script = document.createElement('script');
       script.id = 'google-analytics';
-      script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${primaryTagId}`;
       script.async = true;
       document.head.appendChild(script);
 
@@ -30,13 +38,13 @@ export const AnalyticsLoader: React.FC<AnalyticsLoaderProps> = ({ measurementId 
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', '${measurementId}', { 'anonymize_ip': true });
+        ${validTagIds.map((tagId) => `gtag('config', '${tagId}', { 'anonymize_ip': true });`).join('\n        ')}
       `;
       document.head.appendChild(inlineScript);
 
       return () => {};
     }
-  }, [consent, measurementId]);
+  }, [consent, validTagIdsKey]);
 
   return null;
 };

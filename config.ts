@@ -46,8 +46,10 @@ export const NOTIFICATIONS_CONFIG = {
 
 // --- ANALYTICS ---
 export const ANALYTICS_CONFIG = {
-  // Substitua pelo seu ID real do GA4 (ex: G-XXXXXXXXXX)
-  GA_MEASUREMENT_ID: 'G-XXXXXXXXXX', 
+  // Google tag da conta de anúncios
+  GOOGLE_TAG_ID: 'AW-18092178381',
+  // Opcional: substitua pelo seu ID real do GA4 (ex: G-XXXXXXXXXX)
+  GA_MEASUREMENT_ID: '',
 };
 
 // --- PERSONAL & CONTACT INFO ---

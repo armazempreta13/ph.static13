@@ -219,7 +219,9 @@ function AppContent() {
   return (
     <HelmetProvider>
         <div className="min-h-screen relative font-sans bg-white dark:bg-dark flex flex-col text-gray-900 dark:text-white overflow-x-hidden transition-colors duration-300">
-            <AnalyticsLoader measurementId={ANALYTICS_CONFIG.GA_MEASUREMENT_ID} />
+            <AnalyticsLoader
+              tagIds={[ANALYTICS_CONFIG.GOOGLE_TAG_ID, ANALYTICS_CONFIG.GA_MEASUREMENT_ID]}
+            />
             {currentView === '404' && (
                 <SEO title="Página não encontrada" description="A página solicitada não foi encontrada." noindex />
             )}
