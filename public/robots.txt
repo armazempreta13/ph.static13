@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://phstatic.com.br/sitemap.xml
+Sitemap: https://www.phstatic.com.br/sitemap.xml
