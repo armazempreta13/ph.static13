@@ -53,17 +53,17 @@ export const buildPageUrl = (siteUrl: string, view: ViewType): string => {
   const url = new URL(siteUrl);
 
   if (view === 'home') {
+    url.pathname = '/';
     return url.toString();
   }
 
-  url.searchParams.set('page', view);
+  url.pathname = `/${view}`;
   return url.toString();
 };
 
 export const buildServiceUrl = (siteUrl: string, serviceId: string): string => {
   const url = new URL(siteUrl);
-  url.searchParams.set('page', 'services');
-  url.searchParams.set('service', serviceId);
+  url.pathname = `/services/${serviceId}`;
   return url.toString();
 };
 

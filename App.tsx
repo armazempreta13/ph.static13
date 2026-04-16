@@ -62,7 +62,9 @@ function AppContent() {
   // --- URL PARAMETER HANDLING (ROUTING) ---
   useEffect(() => {
       const params = new URLSearchParams(window.location.search);
-      const pageParam = params.get('page');
+      const path = window.location.pathname.replace(/^\/|\/$/g, '');
+      
+      const pageParam = params.get('page') || path;
       const serviceParam = params.get('service');
 
       if (pageParam === 'briefing') {
@@ -80,6 +82,13 @@ function AppContent() {
               setCurrentView('services');
               setSelectedService(matchedService);
           }
+      } else if (path.startsWith('services/')) {
+          const subPath = path.substring(9);
+          const matchedService = content.services.find((service) => service.id === subPath);
+          if (matchedService) {
+              setCurrentView('services');
+              setSelectedService(matchedService);
+          }
       }
   }, [content.services]);
 
@@ -88,16 +97,20 @@ function AppContent() {
     const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
 
     if (selectedService) {
-      url.searchParams.set('page', 'services');
-      url.searchParams.set('service', selectedService.id);
+      url.pathname = `/services/${selectedService.id}`;
+      url.searchParams.delete('page');
+      url.searchParams.delete('service');
     } else {
       url.searchParams.delete('service');
 
       if (currentView === 'home') {
+        url.pathname = '/';
         url.searchParams.delete('page');
       } else if (isIndexableView(currentView)) {
-        url.searchParams.set('page', currentView);
+        url.pathname = `/${currentView}`;
+        url.searchParams.delete('page');
       } else {
+        url.pathname = '/';
         url.searchParams.delete('page');
       }
     }
