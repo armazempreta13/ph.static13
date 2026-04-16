@@ -124,36 +124,6 @@ export const Contact: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 gap-4">
-              <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-white text-primary-600 flex items-center justify-center shadow-sm">
-                    <Clock3 size={18} />
-                  </div>
-                  <p className="font-semibold text-gray-900">O que acontece depois do contato</p>
-                </div>
-                <div className="space-y-3 text-sm text-gray-600">
-                  <p>1. Eu avalio seu contexto e objetivo.</p>
-                  <p>2. Retorno com direcionamento e faixa de investimento.</p>
-                  <p>3. Se fizer sentido, seguimos para proposta e inicio.</p>
-                </div>
-              </div>
-
-              <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-white text-primary-600 flex items-center justify-center shadow-sm">
-                    <ShieldCheck size={18} />
-                  </div>
-                  <p className="font-semibold text-gray-900">Compromissos da entrega</p>
-                </div>
-                <div className="space-y-3 text-sm text-gray-600">
-                  <p>Estrutura clara, sem excesso tecnico desnecessario.</p>
-                  <p>Foco em experiencia, conversao e performance.</p>
-                  <p>Codigo proprio e projeto pensado para crescer.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-4">
               <a
                 href={`https://wa.me/${CONTACT_CONFIG.WHATSAPP_NUMBER}`}
                 target="_blank"
@@ -191,14 +161,47 @@ export const Contact: React.FC = () => {
               </a>
             </div>
 
-            <div className="pt-6 border-t border-gray-100 grid grid-cols-2 gap-4">
-              <div className="flex items-center gap-3 text-sm text-gray-500">
-                <div className="p-1 rounded bg-yellow-50 text-yellow-600"><Zap size={14} className="fill-yellow-600" /></div>
-                <span>Retorno em ate 24h</span>
+            <div className="pt-2">
+              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Como funciona</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
+                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-white text-primary-600 flex items-center justify-center shadow-sm">
+                      <Clock3 size={18} />
+                    </div>
+                    <p className="font-semibold text-gray-900">O que acontece depois</p>
+                  </div>
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <p>1. Avalio o seu objetivo atual.</p>
+                    <p>2. Retorno com orcamento rapido.</p>
+                    <p>3. Fechamos escopo e inicio.</p>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-white text-primary-600 flex items-center justify-center shadow-sm">
+                      <ShieldCheck size={18} />
+                    </div>
+                    <p className="font-semibold text-gray-900">Meus compromissos</p>
+                  </div>
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <p>Foco na Conversao e SEO.</p>
+                    <p>Entrega dentro do prazo exato.</p>
+                    <p>Projeto escalavel e seguro.</p>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center gap-3 text-sm text-gray-500">
-                <div className="p-1 rounded bg-blue-50 text-blue-600"><CheckCircle2 size={14} /></div>
-                <span>Escopo guiado com clareza</span>
+            </div>
+
+            <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-2 text-sm text-gray-500 font-medium">
+                <span className="flex items-center justify-center w-6 h-6 rounded bg-yellow-50 text-yellow-600"><Zap size={14} className="fill-yellow-600" /></span>
+                Retorno em 24h
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-500 font-medium">
+                <span className="flex items-center justify-center w-6 h-6 rounded bg-blue-50 text-blue-600"><CheckCircle2 size={14} /></span>
+                Escopo guiado
               </div>
             </div>
           </div>
