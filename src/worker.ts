@@ -177,7 +177,8 @@ import {
   buildClientConfirmationHtml, 
   buildChatbotLeadHtml, 
   buildChatbotClientHtml,
-  buildChatbotSummaryText
+  buildChatbotSummaryText,
+  buildPromoNotificationHtml
 } from '../lib/emailTemplates.js';
 
 const handleContactRequest = async (request: Request, env: Env) => {
@@ -293,7 +294,7 @@ const handlePromoRequest = async (request: Request, env: Env) => {
         {
           to: env.CONTACT_EMAIL_TO,
           subject: `🔥 [PROMOÇÃO] Resgate: ${payload.name}`,
-          html: `<p><strong>Novo Cupom Resgatado!</strong></p><p>Nome: ${payload.name}</p><p>WhatsApp: ${payload.whatsapp}</p><p>Restam: ${5 - claimedCount}/5</p>`,
+          html: buildPromoNotificationHtml(payload, 5 - claimedCount),
           text: `Novo Resgate. Nome: ${payload.name}. WhatsApp: ${payload.whatsapp}. Restam: ${5 - claimedCount}/5`
         },
         env
