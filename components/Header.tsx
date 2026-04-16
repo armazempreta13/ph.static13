@@ -50,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onLogoC
   };
 
   const getHeaderClasses = () => {
-      const base = "fixed top-0 w-full z-[49] transition-all duration-300 border-b";
+      const base = "sticky top-0 w-full z-[49] transition-all duration-300 border-b";
       if (isScrolled) {
           return `${base} bg-white/90 backdrop-blur-md shadow-sm py-3 border-gray-100`;
       }

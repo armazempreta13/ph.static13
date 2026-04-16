@@ -18,3 +18,7 @@ not_found_handling = "single-page-application"
 command = "npm run build"
 watch_paths = ["src/**/*.{ts,tsx,css}"]
 upload.format = "modules"
+
+[[kv_namespaces]]
+binding = "PROMO_DB"
+id = "e67114ae9b9049369e029a7e557e4482"

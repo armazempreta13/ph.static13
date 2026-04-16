@@ -12,6 +12,7 @@ import { Contact } from './components/Contact';
 import { ServiceDetail } from './components/ServiceDetail';
 import { EasterEgg } from './components/EasterEgg';
 import { CookieBanner } from './components/CookieBanner';
+import { PromoBanner } from './components/PromoBanner';
 import { AnalyticsLoader } from './components/AnalyticsLoader';
 import { NotFound } from './components/NotFound';
 import { TermsOfUse } from './components/TermsOfUse';
@@ -232,6 +233,7 @@ function AppContent() {
             {/* GLOBAL COMPONENTS (Hidden on Full Screen Views) */}
             {!isFullScreenView && (
                 <>
+                    <PromoBanner />
                     <EasterEgg externalTrigger={triggerEasterEgg} onClose={() => setTriggerEasterEgg(false)} />
                     <CookieBanner />
                     <AccessibilityMenu />

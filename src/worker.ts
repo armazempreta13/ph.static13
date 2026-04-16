@@ -1,5 +1,6 @@
 interface Env {
   ASSETS: Fetcher;
+  PROMO_DB: KVNamespace;
   EMAIL_PROVIDER?: 'resend' | 'mailchannels';
   CONTACT_EMAIL_TO?: string;
   CONTACT_FROM_EMAIL?: string;
@@ -175,7 +176,8 @@ import {
   buildContactEmailHtml, 
   buildClientConfirmationHtml, 
   buildChatbotLeadHtml, 
-  buildChatbotClientHtml 
+  buildChatbotClientHtml,
+  buildChatbotSummaryText
 } from '../lib/emailTemplates.js';
 
 const handleContactRequest = async (request: Request, env: Env) => {
@@ -263,6 +265,47 @@ const handleEmailRequest = async (request: Request, env: Env) => {
   return json({ success: true }, 200, getCorsHeaders(request, env));
 };
 
+const handlePromoRequest = async (request: Request, env: Env) => {
+  if (request.method === 'GET') {
+    const claimsStr = await env.PROMO_DB.get('vagas_promo_v1');
+    const claimedCount = claimsStr ? parseInt(claimsStr, 10) : 0;
+    return json({ success: true, claimed: claimedCount, limit: 5 }, 200, getCorsHeaders(request, env));
+  }
+
+  if (request.method === 'POST') {
+    const payload: { name: string; whatsapp: string } = await request.json();
+    
+    // Check current availability
+    const claimsStr = await env.PROMO_DB.get('vagas_promo_v1');
+    let claimedCount = claimsStr ? parseInt(claimsStr, 10) : 0;
+    
+    if (claimedCount >= 5) {
+      return json({ success: false, error: 'As vagas da promoção esgotaram!' }, 403, getCorsHeaders(request, env));
+    }
+
+    // Increment and save
+    claimedCount += 1;
+    await env.PROMO_DB.put('vagas_promo_v1', claimedCount.toString());
+
+    // Send owner notification
+    if (env.CONTACT_EMAIL_TO) {
+      await sendEmail(
+        {
+          to: env.CONTACT_EMAIL_TO,
+          subject: `🔥 [PROMOÇÃO] Resgate: ${payload.name}`,
+          html: `<p><strong>Novo Cupom Resgatado!</strong></p><p>Nome: ${payload.name}</p><p>WhatsApp: ${payload.whatsapp}</p><p>Restam: ${5 - claimedCount}/5</p>`,
+          text: `Novo Resgate. Nome: ${payload.name}. WhatsApp: ${payload.whatsapp}. Restam: ${5 - claimedCount}/5`
+        },
+        env
+      );
+    }
+    
+    return json({ success: true, claimed: claimedCount, limit: 5 }, 200, getCorsHeaders(request, env));
+  }
+
+  return json({ error: 'Método não permitido.' }, 405, getCorsHeaders(request, env));
+};
+
 export default {
   async fetch(request: Request, env: Env) {
     const url = new URL(request.url);
@@ -287,6 +330,14 @@ export default {
         return await handleChatbotLeadRequest(request, env);
       } catch (error: any) {
         return json({ error: error?.message || 'Falha no endpoint do chatbot.' }, 500, getCorsHeaders(request, env));
+      }
+    }
+
+    if (url.pathname === '/api/promo') {
+      try {
+        return await handlePromoRequest(request, env);
+      } catch (error: any) {
+        return json({ error: error?.message || 'Falha no endpoint promocional.' }, 500, getCorsHeaders(request, env));
       }
     }
 
